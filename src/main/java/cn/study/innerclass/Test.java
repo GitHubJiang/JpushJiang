@@ -14,13 +14,49 @@
  */
 package cn.study.innerclass;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Date;
+
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.hssf.usermodel.HSSFFormulaEvaluator;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 public class Test {
-    public static void main(String[] args) {
-        Exsample ex = new Exsample();
+    public static void main(String[] args) throws EncryptedDocumentException, InvalidFormatException, IOException {
+        /*Exsample ex = new Exsample();
         Exsample.PublicInnerClass pub = ex.new PublicInnerClass();
         pub.setPuAge(111);
-        pub.test();
+        pub.test();*/
 
+        /*Workbook book = new HSSFWorkbook();
+        Cell cell = book.createSheet().createRow(1).createCell(1);
+        cell.setCellValue(5l);
+        System.out.println(cell.getCellType());*/
         
-        }
+        FileInputStream fin = new FileInputStream("E:/test.xlsx");
+        Workbook book = WorkbookFactory.create(fin);
+        Sheet sheet = book.getSheetAt(0);
+        ;
+        PoiUtil.getCellData(sheet.getRow(0).getCell(0), new XSSFFormulaEvaluator((XSSFWorkbook)book));
+        PoiUtil.getCellData(sheet.getRow(0).getCell(1), new XSSFFormulaEvaluator((XSSFWorkbook)book));
+        PoiUtil.getCellData(sheet.getRow(0).getCell(2), new XSSFFormulaEvaluator((XSSFWorkbook)book));
+        PoiUtil.getCellData(sheet.getRow(1).getCell(0), new XSSFFormulaEvaluator((XSSFWorkbook)book));
+        PoiUtil.getCellData(sheet.getRow(1).getCell(1), new XSSFFormulaEvaluator((XSSFWorkbook)book));
+        PoiUtil.getCellData(sheet.getRow(1).getCell(2), new XSSFFormulaEvaluator((XSSFWorkbook)book));
+        PoiUtil.getCellData(sheet.getRow(2).getCell(0), new XSSFFormulaEvaluator((XSSFWorkbook)book));
+        PoiUtil.getCellData(sheet.getRow(2).getCell(1), new XSSFFormulaEvaluator((XSSFWorkbook)book));
+        PoiUtil.getCellData(sheet.getRow(2).getCell(2), new XSSFFormulaEvaluator((XSSFWorkbook)book));
+        PoiUtil.getCellData(sheet.getRow(3).getCell(0), new XSSFFormulaEvaluator((XSSFWorkbook)book));
+        PoiUtil.getCellData(sheet.getRow(3).getCell(1), new XSSFFormulaEvaluator((XSSFWorkbook)book));
+        PoiUtil.getCellData(sheet.getRow(3).getCell(2), new XSSFFormulaEvaluator((XSSFWorkbook)book));
+    }
 }
