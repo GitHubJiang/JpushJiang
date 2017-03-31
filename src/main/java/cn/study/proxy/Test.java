@@ -14,9 +14,15 @@
  */
 package cn.study.proxy;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+
+import sun.misc.ProxyGenerator;
 
 public class Test {
 
@@ -36,6 +42,29 @@ public class Test {
                 return null;
             }
         });
+        
+        byte[] bytes = ProxyGenerator.generateProxyClass("TempProxy", jdkPerson.getClass().getInterfaces());
+        
+        File file = new File("E:\\INV\\index.class");
+        
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file);
+            fos.write(bytes);
+            fos.flush();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e){
+            e.printStackTrace();
+        } finally {            
+            try {
+                fos.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
         
        /* byte[] classFile = ProxyGenerator.generateProxyClass("$Proxy0", JDKPersonImpl.class.getInterfaces());  
         
